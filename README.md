@@ -41,7 +41,7 @@ iosApp模块
 
 ### 多平台运行
 运行Android
-- 运行 conposeApp即可
+- 运行 composeApp即可
 
 运行Desktop
 - Edit Configurations
@@ -60,8 +60,7 @@ iosApp模块
 - run iosApp
 
 ### 版本对应关系
-- KMP Plugin Version<-->AGP Version
-https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+- [KMP Plugin Version<-->AGP Version](https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility)
 
 | KMP版本        | Gradle版本    | AGP版本       | Xcode |
 |--------------|-------------|-------------|-------|
@@ -72,8 +71,8 @@ https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compa
 | 2.0.0        | 7.5-8.5     | 7.4.2–8.3   | 15.3  |
 | 1.9.20       | 7.5-8.1.1   | 7.4.2–8.2   | 15.0  |
 
-- AGP version<-->gradle version
-https://developer.android.google.cn/build/releases/gradle-plugin?hl=zh-cn
+
+- [AGP version<-->gradle version](https://developer.android.google.cn/build/releases/gradle-plugin?hl=zh-cn)
 
 | AGP版本         | 最低 Gradle 版本 |
 |---------------|--------------|
@@ -109,8 +108,7 @@ https://developer.android.google.cn/build/releases/gradle-plugin?hl=zh-cn
 | 1.2.0 - 1.3.1 | 2.2.1 - 2.9  |
 | 1.0.0 - 1.1.3 | 2.2.1 - 2.3  |
 
-- Android Studio Version<-->AGP Version
-https://developer.android.google.cn/build/releases/gradle-plugin?hl=zh-cn
+- [Android Studio Version<-->AGP Version](https://developer.android.google.cn/build/releases/gradle-plugin?hl=zh-cn)
 
 | Android Studio 版本        | AGP 版本  |
 |--------------------------|---------|
