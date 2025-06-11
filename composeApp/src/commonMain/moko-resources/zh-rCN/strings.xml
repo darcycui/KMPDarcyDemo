@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="my_string">简体中文字符串</string>
+    <string name="unknown">未知</string>
+    <string name="home">主页</string>
+    <string name="encrypt_text">加密文本</string>
+    <string name="encrypt_file">加密文件</string>
+    <string name="load_resource">加载KMP自带资源</string>
+    <string name="load_moko_resource">加载Moko资源</string>
+    <string name="ktor_network">Ktor网络访问</string>
+    <string name="load_string_resource">使用字符串资源</string>
+    <string name="load_color_resource">使用颜色资源</string>
+    <string name="load_drawable_resource">使用图片资源</string>
+    <string name="load_file_resource">使用文件资源</string>
+    <string name="http_get">Http Get</string>
+    <string name="http_post">Http Post</string>
+    <string name="websocket">Websocket</string>
 </resources>

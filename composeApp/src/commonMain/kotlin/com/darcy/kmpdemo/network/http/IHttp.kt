@@ -1,0 +1,24 @@
+package com.darcy.kmpdemo.network.http
+
+import com.darcy.kmpdemo.bean.base.BaseResult
+import kotlinx.serialization.KSerializer
+
+interface IHttp {
+    suspend fun <T> doGetRequest(
+        serializer: KSerializer<T>,
+        url: String,
+        params: Map<String, String> = mapOf(),
+        success: ((BaseResult<T>?) -> Unit)?,
+        successList: ((BaseResult<List<T>>?) -> Unit)?,
+        error: ((String) -> Unit)?
+    )
+
+    suspend fun <T> doPostRequest(
+        serializer: KSerializer<T>,
+        url: String,
+        params: Map<String, String> = mapOf(),
+        success: ((BaseResult<T>?) -> Unit)?,
+        successList: ((BaseResult<List<T>>?) -> Unit)?,
+        error: ((String) -> Unit)?
+    )
+}

@@ -1,9 +1,7 @@
 import dev.icerock.gradle.MRVisibility
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("dev.icerock.mobile.multiplatform-resources")
+    alias(libs.plugins.kotlinxSerialization)
 }
 // config moko resources plugin
 multiplatformResources {
@@ -29,17 +28,6 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
-
     jvm("desktop")
 //    moko resources 不支持wasm
 
@@ -49,11 +37,17 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            // ktor network
+            // kotlin coroutine
+            implementation(libs.kotlinx.coroutines.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+//            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.foundation)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -65,10 +59,25 @@ kotlin {
             api(libs.moko.resources.compose)
             // moko resources test
 //            api(libs.moko.resources.test)
+            // ktor network
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio) // CIO 引擎
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.encoding)
+            // kotlinx serialization
+            api(libs.kotlinx.serialization.core)
+            api(libs.kotlinx.serialization.json)
+            // kotlin coroutine
+            implementation(libs.kotlinx.coroutines.core)
+            // navigation3
+            implementation(libs.org.androidx.navigation.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            // ktor network
         }
     }
 }

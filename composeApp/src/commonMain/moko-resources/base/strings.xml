@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="my_string">My default localization string</string>
+    <string name="unknown">unknown</string>
+    <string name="home">Home</string>
+    <string name="encrypt_text">Encrypt Text</string>
+    <string name="encrypt_file">Encrypt File</string>
+    <string name="load_resource">Load Resource</string>
+    <string name="load_moko_resource">Load Moko Resource</string>
+    <string name="ktor_network">Ktor Network</string>
+    <string name="load_string_resource">load string resource</string>
+    <string name="load_color_resource">load color resource</string>
+    <string name="load_drawable_resource">load drawable resource</string>
+    <string name="load_file_resource">load file resource</string>
+    <string name="http_get">Http Get</string>
+    <string name="http_get_darcy">Http Get Darcy</string>
+    <string name="http_post">Http Post</string>
+    <string name="http_post_darcy">Http Post Darcy</string>
+    <string name="websocket">Websocket</string>
 </resources>

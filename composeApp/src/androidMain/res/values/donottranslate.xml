@@ -1,0 +1,4 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="zh-rCN">
+    <string name="app_name">KMPDarcyDemo</string>
+</resources>
