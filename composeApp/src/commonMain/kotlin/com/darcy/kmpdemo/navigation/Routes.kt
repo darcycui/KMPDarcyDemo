@@ -12,5 +12,6 @@ enum class Pages(val title: StringResource) {
     EncryptFilePage(title = SharedRes.strings.encrypt_file),
     LoadResourcePage(title = SharedRes.strings.load_resource),
     LoadMokoResourcePage(title = SharedRes.strings.load_moko_resource),
-    KtorNetworkPage(title = SharedRes.strings.ktor_network),
+    KtorHttpPage(title = SharedRes.strings.ktor_http),
+    KtorWebsocketPage(title = SharedRes.strings.ktor_websocket),
 }

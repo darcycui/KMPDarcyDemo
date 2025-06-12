@@ -7,7 +7,8 @@
     <string name="encrypt_file">加密文件</string>
     <string name="load_resource">加载KMP自带资源</string>
     <string name="load_moko_resource">加载Moko资源</string>
-    <string name="ktor_network">Ktor网络访问</string>
+    <string name="ktor_http">Ktor Http</string>
+    <string name="ktor_websocket">Ktor Websocket</string>
     <string name="load_string_resource">使用字符串资源</string>
     <string name="load_color_resource">使用颜色资源</string>
     <string name="load_drawable_resource">使用图片资源</string>
@@ -15,4 +16,7 @@
     <string name="http_get">Http Get</string>
     <string name="http_post">Http Post</string>
     <string name="websocket">Websocket</string>
+    <string name="websocket_connect">Websocket Connect</string>
+    <string name="websocket_disconnect">Websocket Disconnect</string>
+    <string name="websocket_send">Websocket Send</string>
 </resources>

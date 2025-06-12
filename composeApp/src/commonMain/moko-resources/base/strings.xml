@@ -7,7 +7,8 @@
     <string name="encrypt_file">Encrypt File</string>
     <string name="load_resource">Load Resource</string>
     <string name="load_moko_resource">Load Moko Resource</string>
-    <string name="ktor_network">Ktor Network</string>
+    <string name="ktor_http">Ktor Http</string>
+    <string name="ktor_websocket">Ktor Websocket</string>
     <string name="load_string_resource">load string resource</string>
     <string name="load_color_resource">load color resource</string>
     <string name="load_drawable_resource">load drawable resource</string>
@@ -17,4 +18,7 @@
     <string name="http_post">Http Post</string>
     <string name="http_post_darcy">Http Post Darcy</string>
     <string name="websocket">Websocket</string>
+    <string name="websocket_connect">Websocket Connect</string>
+    <string name="websocket_disconnect">Websocket Disconnect</string>
+    <string name="websocket_send">Websocket Send</string>
 </resources>

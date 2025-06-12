@@ -1,6 +1,6 @@
 package com.darcy.kmpdemo.network.parser.impl
 
-import com.darcy.kmpdemo.bean.base.BaseResult
+import com.darcy.kmpdemo.bean.http.base.BaseResult
 import com.darcy.kmpdemo.network.parser.IJsonParser
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json

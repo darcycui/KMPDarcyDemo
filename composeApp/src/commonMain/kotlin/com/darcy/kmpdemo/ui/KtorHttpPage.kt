@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.darcy.kmpdemo.bean.IPEntity
-import com.darcy.kmpdemo.bean.UserEntity
+import com.darcy.kmpdemo.bean.http.IPEntity
+import com.darcy.kmpdemo.bean.http.UserEntity
 import com.darcy.kmpdemo.network.http.HttpManager
 import com.darcy.kmpdemo.network.ssl.SslSettings
 import dev.icerock.moko.resources.compose.stringResource
@@ -29,7 +29,7 @@ import kotlinx.serialization.serializer
 import org.example.library.SharedRes
 
 @Composable
-fun ShowKtorNetwork() {
+fun ShowKtorHttp() {
     // 保存状态
     val content = remember { mutableStateOf("") }
     // 获取协程作用域
@@ -65,12 +65,6 @@ fun ShowKtorNetwork() {
         }) {
             Text(text = stringResource(SharedRes.strings.http_post))
         }
-        Button(onClick = {
-            content.value = "websocket"
-            doWebSocket(composeScope, content)
-        }) {
-            Text(text = stringResource(SharedRes.strings.websocket))
-        }
         Text(text = content.value)
 
     }
@@ -92,17 +86,13 @@ private fun doGetJuHe(scope: CoroutineScope, content: MutableState<String>) {
                 "ip" to "114.215.154.101"
             ),
             success = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it.toString()
-                    println("success: itClazz=${it?.result!!::class.java}")
-                }
+                println("success: itClazz=${it?.result!!::class.java}")
+                updateText(scope, content, it.toString())
             },
             successList = {},
             error = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it
-                    println("error: it=$it")
-                }
+                println("error: it=$it")
+                updateText(scope, content, it)
             })
     }
 }
@@ -115,16 +105,12 @@ private fun doGetDarcy(scope: CoroutineScope, content: MutableState<String>) {
             mapOf(),
             success = {},
             successList = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it.toString()
-                    println("successList: itClazz=${it?.result!!::class.java}")
-                }
+                println("success: itClazz=${it?.result!!::class.java}")
+                updateText(scope, content, it.toString())
             },
             error = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it
-                    println("error: it=$it")
-                }
+                println("error: it=$it")
+                updateText(scope, content, it)
             })
     }
 }
@@ -139,21 +125,20 @@ private fun doPost(scope: CoroutineScope, content: MutableState<String>) {
                 "ip" to "114.215.154.101"
             ),
             success = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it.toString()
-                    println("success: itClazz=${it?.result!!::class.java}")
-                }
+                println("success: itClazz=${it?.result!!::class.java}")
+                updateText(scope, content, it.toString())
             },
             successList = {},
             error = {
-                scope.launch(Dispatchers.Main) {
-                    content.value = it
-                    println("error: it=$it")
-                }
+                println("error: it=$it")
+                updateText(scope, content, it)
             })
     }
 }
 
-private fun doWebSocket(scope: CoroutineScope, content: MutableState<String>) {
-
+private fun updateText(scope: CoroutineScope, content: MutableState<String>, text: String) {
+    scope.launch(Dispatchers.Main) {
+        println("text:$text")
+        content.value += "\n$text"
+    }
 }

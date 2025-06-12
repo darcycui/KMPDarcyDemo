@@ -26,9 +26,8 @@ fun ShowHome(
         add(Pages.EncryptFilePage)
         add(Pages.LoadResourcePage)
         add(Pages.LoadMokoResourcePage)
-        for (i in 1..20) {
-            add(Pages.KtorNetworkPage)
-        }
+        add(Pages.KtorHttpPage)
+        add(Pages.KtorWebsocketPage)
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

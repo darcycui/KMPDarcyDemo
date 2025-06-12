@@ -10,6 +10,7 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
@@ -61,5 +62,11 @@ val ktorClient: HttpClient
                 trustManager = SslSettings.getTrustManager()
                 println("engine https-3")
             }
+        }
+        // install websocket
+        install(WebSockets) {
+            pingIntervalMillis = 20_000
+            maxFrameSize = 8 * 1024
+            contentConverter = null
         }
     }

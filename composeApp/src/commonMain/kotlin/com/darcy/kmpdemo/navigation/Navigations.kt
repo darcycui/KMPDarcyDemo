@@ -12,7 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.darcy.kmpdemo.ui.ShowEncryptFile
 import com.darcy.kmpdemo.ui.ShowEncryptText
 import com.darcy.kmpdemo.ui.ShowHome
-import com.darcy.kmpdemo.ui.ShowKtorNetwork
+import com.darcy.kmpdemo.ui.ShowKtorHttp
+import com.darcy.kmpdemo.ui.ShowKtorWebsocket
 import com.darcy.kmpdemo.ui.ShowLoadMokoResource
 import com.darcy.kmpdemo.ui.ShowLoadResource
 
@@ -44,17 +45,16 @@ fun AppNavigation(
             startDestination = Pages.HomePage.name,
             modifier = Modifier.padding(innerPadding)
         ) {
-
-
             composable(route = Pages.HomePage.name) {
                 ShowHome(modifier = Modifier.padding(innerPadding)) {
                     when (it) {
-                        Pages.HomePage.name -> navController.navigate(Pages.HomePage.name)
-                        Pages.EncryptTextPage.name -> navController.navigate(Pages.EncryptTextPage.name)
-                        Pages.EncryptFilePage.name -> navController.navigate(Pages.EncryptFilePage.name)
-                        Pages.LoadResourcePage.name -> navController.navigate(Pages.LoadResourcePage.name)
-                        Pages.LoadMokoResourcePage.name -> navController.navigate(Pages.LoadMokoResourcePage.name)
-                        Pages.KtorNetworkPage.name -> navController.navigate(Pages.KtorNetworkPage.name)
+                        Pages.HomePage.name,
+                        Pages.EncryptTextPage.name,
+                        Pages.EncryptFilePage.name,
+                        Pages.LoadResourcePage.name,
+                        Pages.LoadMokoResourcePage.name,
+                        Pages.KtorHttpPage.name,
+                        Pages.KtorWebsocketPage.name -> navController.navigate(it)
                     }
                 }
             }
@@ -70,8 +70,11 @@ fun AppNavigation(
             composable(route = Pages.LoadMokoResourcePage.name) {
                 ShowLoadMokoResource()
             }
-            composable(route = Pages.KtorNetworkPage.name) {
-                ShowKtorNetwork()
+            composable(route = Pages.KtorHttpPage.name) {
+                ShowKtorHttp()
+            }
+            composable(route = Pages.KtorWebsocketPage.name) {
+                ShowKtorWebsocket()
             }
         }
     }

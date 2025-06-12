@@ -69,6 +69,8 @@ kotlin {
             // kotlinx serialization
             api(libs.kotlinx.serialization.core)
             api(libs.kotlinx.serialization.json)
+            // websocket
+            implementation(libs.ktor.client.websockets)
             // kotlin coroutine
             implementation(libs.kotlinx.coroutines.core)
             // navigation3

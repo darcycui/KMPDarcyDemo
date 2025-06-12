@@ -1,6 +1,6 @@
-package com.darcy.kmpdemo.bean
+package com.darcy.kmpdemo.bean.http
 
-import com.darcy.kmpdemo.bean.base.IEntity
+import com.darcy.kmpdemo.bean.IEntity
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 

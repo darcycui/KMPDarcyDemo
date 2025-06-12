@@ -1,12 +1,11 @@
 package com.darcy.kmpdemo.network.http.impl
 
-import com.darcy.kmpdemo.bean.base.BaseResult
+import com.darcy.kmpdemo.bean.http.base.BaseResult
 import com.darcy.kmpdemo.network.http.IHttp
 import com.darcy.kmpdemo.network.parser.impl.JsonParserImpl
 import com.darcy.kmpdemo.platform.ktorClient
 import com.darcy.kmpdemo.utils.toFormDataContent
 import com.darcy.kmpdemo.utils.toUrlEncodedString
-import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
