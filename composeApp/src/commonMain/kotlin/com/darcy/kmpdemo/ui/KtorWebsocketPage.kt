@@ -37,12 +37,16 @@ fun ShowKtorWebsocket() {
     val content = remember { mutableStateOf("") }
     // 获取协程作用域
     val composeScope: CoroutineScope = rememberCoroutineScope()
-    var bytes by remember {
+    var bytesServer by remember {
+        mutableStateOf(ByteArray(0))
+    }
+    var bytesIP by remember {
         mutableStateOf(ByteArray(0))
     }
     LaunchedEffect(Unit) {
-        bytes = Res.readBytes(SslSettings.KEYSTORE_PATH)
-        SslSettings.initCertBytes(bytes)
+        bytesServer = Res.readBytes(SslSettings.KEYSTORE_PATH_SERVER)
+        bytesIP = Res.readBytes(SslSettings.KEYSTORE_PATH_IP)
+        SslSettings.initCertBytes(listOf(bytesServer, bytesIP))
     }
     DisposableEffect(key1 = "") {
         onDispose {

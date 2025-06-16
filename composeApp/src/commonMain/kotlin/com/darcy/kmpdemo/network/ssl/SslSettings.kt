@@ -9,26 +9,55 @@ import javax.net.ssl.X509TrustManager
 
 object SslSettings {
     // resources中内置证书路径
-    const val KEYSTORE_PATH = "files/ssl/test2ServerSelf.p12"
-    var certBytes: ByteArray? = null
+    const val KEYSTORE_PATH_SERVER = "files/ssl/test2ServerSelf.p12"
+    const val KEYSTORE_PATH_IP = "files/ssl/test2IPSelf241.p12"
 
     /**
      * 初始化证书 certBytes
      */
-    fun initCertBytes(bytes: ByteArray) {
-        certBytes = bytes
+    var certBytesList: List<ByteArray>? = null
+
+    fun initCertBytes(bytesList: List<ByteArray>) {
+        certBytesList = bytesList
     }
 
     /**
      * 获取 KeyStore
      */
     fun getKeyStore(): KeyStore {
-        val keyStoreFile = ByteArrayInputStream(certBytes)
-//        val keyStoreFile = FileInputStream("keystore.jks")
+        val certList = certBytesList ?: throw IllegalStateException("Certificates not initialized")
         val keyStorePassword = "1234".toCharArray()
-//        val keyStore: KeyStore = KeyStore.getInstance(KeyStore.getDefaultType())
-        val keyStore: KeyStore = KeyStore.getInstance("PKCS12")
-        keyStore.load(keyStoreFile, keyStorePassword)
+        val keyStore = KeyStore.getInstance("PKCS12").apply {
+            // 初始化空KeyStore
+            load(null, null)
+        }
+
+        certList.forEachIndexed { index, bytes ->
+            ByteArrayInputStream(bytes).use { certStream ->
+                // 创建临时KeyStore加载单个证书
+                val tempKeyStore = KeyStore.getInstance("PKCS12").apply {
+                    load(certStream, keyStorePassword)
+                }
+
+                // 将证书复制到主KeyStore
+                tempKeyStore.aliases().toList().forEach { alias ->
+                    when {
+                        tempKeyStore.isCertificateEntry(alias) -> {
+                            // 处理纯证书条目
+                            val cert = tempKeyStore.getCertificate(alias)
+                            keyStore.setCertificateEntry("cert_$index", cert)
+                        }
+                        tempKeyStore.isKeyEntry(alias) -> {
+                            // 处理私钥条目（包含证书链）
+                            val chain = tempKeyStore.getCertificateChain(alias)
+                            chain?.forEachIndexed { chainIndex, cert ->
+                                keyStore.setCertificateEntry("cert_${index}_$chainIndex", cert)
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return keyStore
     }
 
