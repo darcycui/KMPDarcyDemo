@@ -100,12 +100,12 @@ val ktorClient: HttpClient
         expectSuccess = true
         HttpResponseValidator {
             // 2xx codes
-            validateResponse { response ->
-                val error: BaseResult<String> = response.body()
-                if (error.resultCode != 200) {
-                    throw HttpException(error.resultCode, error.reason)
-                }
-            }
+//            validateResponse { response ->
+//                val error: BaseResult<String> = response.body()
+//                if (error.resultCode != 200) {
+//                    throw HttpException(error.resultCode, error.reason)
+//                }
+//            }
             // not 2xx codes
             handleResponseException { exception, request ->
                 val clientException = exception as? ClientRequestException

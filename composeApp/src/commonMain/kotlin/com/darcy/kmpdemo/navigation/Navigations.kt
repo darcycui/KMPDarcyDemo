@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.darcy.kmpdemo.ui.ShowDownloadImage
 import com.darcy.kmpdemo.ui.ShowEncryptFile
 import com.darcy.kmpdemo.ui.ShowEncryptText
 import com.darcy.kmpdemo.ui.ShowHome
@@ -54,7 +55,8 @@ fun AppNavigation(
                         Pages.LoadResourcePage.name,
                         Pages.LoadMokoResourcePage.name,
                         Pages.KtorHttpPage.name,
-                        Pages.KtorWebsocketPage.name -> navController.navigate(it)
+                        Pages.KtorWebsocketPage.name,
+                        Pages.DownloadImagePage.name -> navController.navigate(it)
                     }
                 }
             }
@@ -75,6 +77,9 @@ fun AppNavigation(
             }
             composable(route = Pages.KtorWebsocketPage.name) {
                 ShowKtorWebsocket()
+            }
+            composable(route = Pages.DownloadImagePage.name) {
+                ShowDownloadImage()
             }
         }
     }

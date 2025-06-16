@@ -14,4 +14,5 @@ enum class Pages(val title: StringResource) {
     LoadMokoResourcePage(title = SharedRes.strings.load_moko_resource),
     KtorHttpPage(title = SharedRes.strings.ktor_http),
     KtorWebsocketPage(title = SharedRes.strings.ktor_websocket),
+    DownloadImagePage(title = SharedRes.strings.download_image),
 }

@@ -28,9 +28,11 @@ fun ShowHome(
         add(Pages.LoadMokoResourcePage)
         add(Pages.KtorHttpPage)
         add(Pages.KtorWebsocketPage)
+        add(Pages.DownloadImagePage)
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        // 垂直间距
         verticalArrangement = Arrangement.spacedBy(1.dp)
     ) {
         items(pagesStateList.size) { index ->
