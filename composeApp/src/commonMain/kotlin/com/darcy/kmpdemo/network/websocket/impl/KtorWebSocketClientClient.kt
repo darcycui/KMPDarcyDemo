@@ -37,6 +37,9 @@ class KtorWebSocketClientClient : IWebSocketClient, IOuterListener {
     }
 
     override suspend fun connect() {
+        if (outListener == null) {
+            throw NullPointerException("outListener is null. please call setOutListener() first.")
+        }
         if (session != null && session?.isActive == true) {
             println("$TAG already connected!")
         }

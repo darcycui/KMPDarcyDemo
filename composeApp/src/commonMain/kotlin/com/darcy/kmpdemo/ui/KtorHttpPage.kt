@@ -75,65 +75,66 @@ const val urlJuHe = "https://apis.juhe.cn/ip/ipNewV3"
 
 // FIXME: CertPathValidatorException: Trust anchor for certification path not found.
 const val urlDarcy = "https://darcycui.com.cn/users/all"
+//const val urlDarcy = "https://10.0.0.241/users/all"
 
 private fun doGetJuHe(scope: CoroutineScope, content: MutableState<String>) {
-    scope.launch(Dispatchers.IO) {
-        HttpManager.doGetRequest(
-            serializer<IPEntity>(),
-            urlJuHe,
-            mapOf(
-                "key" to "f128bfc760193c5762c5c3be2a6051d8",
-                "ip" to "114.215.154.101"
-            ),
-            success = {
-                println("success: itClazz=${it?.result!!::class.java}")
-                updateText(scope, content, it.toString())
-            },
-            successList = {},
-            error = {
-                println("error: it=$it")
-                updateText(scope, content, it)
-            })
-    }
+    HttpManager.doGetRequest(
+        serializer<IPEntity>(),
+        urlJuHe,
+        mapOf(
+            "key" to "f128bfc760193c5762c5c3be2a6051d8",
+            "ip" to "114.215.154.101"
+        ),
+        needRetry = true,
+        needCache = true,
+        success = {
+            println("success: itClazz=${it?.result!!::class.java}")
+            updateText(scope, content, it.toString())
+        },
+        successList = {},
+        error = {
+            println("error: it=$it")
+            updateText(scope, content, it)
+        })
 }
 
 private fun doGetDarcy(scope: CoroutineScope, content: MutableState<String>) {
-    scope.launch(Dispatchers.IO) {
-        HttpManager.doGetRequest(
-            serializer<UserEntity>(),
-            urlDarcy,
-            mapOf(),
-            success = {},
-            successList = {
-                println("success: itClazz=${it?.result!!::class.java}")
-                updateText(scope, content, it.toString())
-            },
-            error = {
-                println("error: it=$it")
-                updateText(scope, content, it)
-            })
-    }
+    HttpManager.doGetRequest(
+        serializer<UserEntity>(),
+        urlDarcy,
+        mapOf(),
+        needRetry = true,
+        needCache = true,
+        success = {},
+        successList = {
+            println("success: itClazz=${it?.result!!::class.java}")
+            updateText(scope, content, it.toString())
+        },
+        error = {
+            println("error: it=$it")
+            updateText(scope, content, it)
+        })
 }
 
 private fun doPost(scope: CoroutineScope, content: MutableState<String>) {
-    scope.launch(Dispatchers.IO) {
-        HttpManager.doPostRequest(
-            serializer<IPEntity>(),
-            urlJuHe,
-            mapOf(
-                "key" to "f128bfc760193c5762c5c3be2a6051d8",
-                "ip" to "114.215.154.101"
-            ),
-            success = {
-                println("success: itClazz=${it?.result!!::class.java}")
-                updateText(scope, content, it.toString())
-            },
-            successList = {},
-            error = {
-                println("error: it=$it")
-                updateText(scope, content, it)
-            })
-    }
+    HttpManager.doPostRequest(
+        serializer<IPEntity>(),
+        urlJuHe,
+        mapOf(
+            "key" to "f128bfc760193c5762c5c3be2a6051d8",
+            "ip" to "114.215.154.101"
+        ),
+        needRetry = true,
+        needCache = true,
+        success = {
+            println("success: itClazz=${it?.result!!::class.java}")
+            updateText(scope, content, it.toString())
+        },
+        successList = {},
+        error = {
+            println("error: it=$it")
+            updateText(scope, content, it)
+        })
 }
 
 private fun updateText(scope: CoroutineScope, content: MutableState<String>, text: String) {

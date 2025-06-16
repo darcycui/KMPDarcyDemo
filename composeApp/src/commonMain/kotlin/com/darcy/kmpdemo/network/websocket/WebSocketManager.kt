@@ -3,7 +3,7 @@ package com.darcy.kmpdemo.network.websocket
 import com.darcy.kmpdemo.network.websocket.impl.KtorWebSocketClientClient
 import com.darcy.kmpdemo.network.websocket.listener.IOuterListener
 
-object WebSocketClientManager : IWebSocketClient {
+object WebSocketManager : IWebSocketClient {
     private val iWebsocketClient: IWebSocketClient = KtorWebSocketClientClient()
 
     override fun init(url: String, fromUser: String) {

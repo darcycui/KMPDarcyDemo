@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.darcy.kmpdemo.network.ssl.SslSettings
-import com.darcy.kmpdemo.network.websocket.WebSocketClientManager
+import com.darcy.kmpdemo.network.websocket.WebSocketManager
 import com.darcy.kmpdemo.network.websocket.listener.IOuterListener
 import dev.icerock.moko.resources.compose.stringResource
 import kmpdarcydemo.composeapp.generated.resources.Res
@@ -74,8 +74,8 @@ fun ShowKtorWebsocket() {
 private fun connectWS(scope: CoroutineScope, content: MutableState<String>) {
     updateText(scope, content, "connect")
     scope.launch(Dispatchers.IO) {
-        WebSocketClientManager.init(url = "wss://darcycui.com.cn:7443/person", fromUser = "KMP")
-        WebSocketClientManager.setOuterListener(object : IOuterListener {
+        WebSocketManager.init(url = "wss://darcycui.com.cn:7443/person", fromUser = "KMP")
+        WebSocketManager.setOuterListener(object : IOuterListener {
             override fun onOpen() {
                 updateText(scope, content, "onOpen")
             }
@@ -104,7 +104,7 @@ private fun connectWS(scope: CoroutineScope, content: MutableState<String>) {
                 updateText(scope, content, "onClosed")
             }
         })
-        WebSocketClientManager.connect()
+        WebSocketManager.connect()
     }
 }
 
@@ -122,7 +122,7 @@ private fun sendWS(
 ) {
     scope.launch(Dispatchers.IO) {
         count++
-        WebSocketClientManager.send("hello-$count", "three-to-kmp")
+        WebSocketManager.send("hello-$count", "three-to-kmp")
     }
 }
 
@@ -132,6 +132,6 @@ private fun disconnectWS(
 ) {
     updateText(scope, content, "disconnect")
     scope.launch(Dispatchers.IO) {
-        WebSocketClientManager.disconnect()
+        WebSocketManager.disconnect()
     }
 }
