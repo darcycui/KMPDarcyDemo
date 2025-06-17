@@ -15,9 +15,11 @@ object HttpManager : IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     ) {
-        iHttp.doGetRequest(serializer, url, params, needRetry, needCache, success, successList, error)
+        iHttp.doGetRequest(serializer, url, params, needRetry, needCache, success, successList,
+            errors
+        )
     }
 
     override fun <T> doPostRequest(
@@ -28,8 +30,10 @@ object HttpManager : IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     ) {
-        iHttp.doPostRequest(serializer, url, params, needRetry, needCache, success, successList, error)
+        iHttp.doPostRequest(serializer, url, params, needRetry, needCache, success, successList,
+            errors
+        )
     }
 }

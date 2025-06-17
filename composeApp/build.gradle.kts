@@ -75,6 +75,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             // navigation3
             implementation(libs.org.androidx.navigation.compose)
+            // log napier
+            implementation(libs.napier)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

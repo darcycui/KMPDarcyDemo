@@ -19,6 +19,7 @@ mokoResourcesGenerator = "0.24.5"
 ktor = "3.1.3"
 kotlinxSerialization = "1.8.1"
 navigationCompose = "2.9.0-beta01"
+napier = "2.7.1"
 
 [libraries]
 org-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -63,6 +64,8 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 # kotlinx 序列化库
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+# log napier
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

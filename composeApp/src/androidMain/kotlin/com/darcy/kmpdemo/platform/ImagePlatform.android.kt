@@ -3,9 +3,10 @@ package com.darcy.kmpdemo.platform
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import com.darcy.kmpdemo.log.logE
 import java.io.File
 
-actual fun loadImageAsBitmap(filePath: String): ImageBitmap {
+actual fun loadImageAsBitmap(filePath: String): ImageBitmap? {
     return try {
         // 1. 创建文件对象
         val file = File(filePath)
@@ -23,6 +24,7 @@ actual fun loadImageAsBitmap(filePath: String): ImageBitmap {
         bitmap.asImageBitmap()
     } catch (e: Exception) {
         // 5. 错误处理
-        throw RuntimeException("加载图片失败: ${e.message}", e)
+        logE(msg = "加载图片失败: $filePath", throwable = e)
+        null
     }
 }

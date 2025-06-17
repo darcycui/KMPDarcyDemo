@@ -34,17 +34,6 @@ fun ShowKtorHttp() {
     val content = remember { mutableStateOf("") }
     // 获取协程作用域
     val composeScope: CoroutineScope = rememberCoroutineScope()
-    var bytesServer by remember {
-        mutableStateOf(ByteArray(0))
-    }
-    var bytesIP by remember {
-        mutableStateOf(ByteArray(0))
-    }
-    LaunchedEffect(Unit) {
-        bytesServer = Res.readBytes(SslSettings.KEYSTORE_PATH_SERVER)
-        bytesIP = Res.readBytes(SslSettings.KEYSTORE_PATH_IP)
-        SslSettings.initCertBytes(listOf(bytesServer, bytesIP))
-    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -78,8 +67,8 @@ fun ShowKtorHttp() {
 const val urlJuHe = "https://apis.juhe.cn/ip/ipNewV3"
 
 // FIXME: CertPathValidatorException: Trust anchor for certification path not found.
-//const val urlDarcy = "https://darcycui.com.cn/users/all"
-const val urlDarcy = "https://10.0.0.241/api/users/all-"
+const val urlDarcy = "https://darcycui.com.cn/users/all"
+//const val urlDarcy = "https://10.0.0.241/api/users/all-"
 
 private fun doGetJuHe(scope: CoroutineScope, content: MutableState<String>) {
     HttpManager.doGetRequest(
@@ -96,7 +85,7 @@ private fun doGetJuHe(scope: CoroutineScope, content: MutableState<String>) {
             updateText(scope, content, it.toString())
         },
         successList = {},
-        error = {
+        errors = {
             println("error: it=$it")
             updateText(scope, content, it)
         })
@@ -114,7 +103,7 @@ private fun doGetDarcy(scope: CoroutineScope, content: MutableState<String>) {
             println("success: itClazz=${it?.result!!::class.java}")
             updateText(scope, content, it.toString())
         },
-        error = {
+        errors = {
             println("error: it=$it")
             updateText(scope, content, it)
         })
@@ -135,7 +124,7 @@ private fun doPost(scope: CoroutineScope, content: MutableState<String>) {
             updateText(scope, content, it.toString())
         },
         successList = {},
-        error = {
+        errors = {
             println("error: it=$it")
             updateText(scope, content, it)
         })

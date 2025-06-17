@@ -1,11 +1,11 @@
 package com.darcy.kmpdemo.platform
 
-import com.darcy.kmpdemo.bean.http.base.BaseResult
 import com.darcy.kmpdemo.exception.http.HttpException
+import com.darcy.kmpdemo.log.logD
 import com.darcy.kmpdemo.network.ssl.SslSettings
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpResponseValidator
@@ -28,6 +28,9 @@ import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
+const val KTOR_TAG = "KtorClient:"
+const val KTOR_FILE_TAG = KTOR_TAG + "File Download:"
+
 val ktorClient: HttpClient
     // CIO 异步协程 支持 JVM Android Native(iOS) 支持 http1.x 和 websocket
     get() = HttpClient(CIO) {
@@ -38,23 +41,38 @@ val ktorClient: HttpClient
         }
         //logging
         install(Logging) {
-            logger = Logger.DEFAULT
             level = LogLevel.ALL
+            // logger = Logger.DEFAULT
             logger = object : Logger {
                 override fun log(message: String) {
-                    println("KtorClientDesktop: $message")
+                    // 添加文件下载专用日志
+                    if (message.contains("Content-Type: image") ||
+                        message.contains("Content-Type: application/octet-stream")
+                    ) {
+                        logD(
+                            tag = KTOR_FILE_TAG,
+                            msg = "-------------------------------------\n${
+                                message.substringBefore("BODY START")
+                            }\n-------------------------------------"
+                        )
+                    } else {
+                        logD(
+                            tag = KTOR_TAG,
+                            msg = "-------------------------------------\n$message\n-------------------------------------"
+                        )
+                    }
                 }
             }
         }
         // retry
         install(HttpRequestRetry) {
-            maxRetries = 1
+            maxRetries = 3
             exponentialDelay() // 指数增长延迟
             retryIf { request, response ->
                 !response.status.isSuccess()
             }
             retryOnExceptionIf { request, cause ->
-                cause is Exception
+                cause is ConnectTimeoutException
             }
             delayMillis { retry ->
                 retry * 3000L
@@ -115,9 +133,11 @@ val ktorClient: HttpClient
                     HttpStatusCode.BadRequest -> {
                         throw HttpException.EXCEPTION_400
                     }
+
                     HttpStatusCode.NotFound -> {
                         throw HttpException.EXCEPTION_404
                     }
+
                     HttpStatusCode.InternalServerError -> {
                         throw HttpException.EXCEPTION_500
                     }

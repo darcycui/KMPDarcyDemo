@@ -6,9 +6,6 @@ import com.darcy.kmpdemo.network.parser.impl.JsonParserImpl
 import com.darcy.kmpdemo.platform.ktorClient
 import com.darcy.kmpdemo.utils.toFormDataContent
 import com.darcy.kmpdemo.utils.toUrlEncodedString
-import io.ktor.client.plugins.HttpSend
-import io.ktor.client.plugins.plugin
-import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -16,9 +13,6 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import io.ktor.http.encodedPath
-import io.ktor.http.isSuccess
-import jdk.javadoc.internal.tool.Main.execute
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,14 +44,21 @@ class KtorHttpClient : IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     ) {
         scope.launch {
             // dealRetry(needRetry)
             // dealCache(needCache)
-            val realUrl = url + "?" + params.toUrlEncodedString()
-            val json = ktorClient.get(realUrl).bodyAsText()
-            jsonParser.toBean(json, serializer, success, successList, error)
+            runCatching {
+                val realUrl = url + "?" + params.toUrlEncodedString()
+                val json = ktorClient.get(realUrl).bodyAsText()
+                jsonParser.toBean(json, serializer, success, successList, errors)
+            }.onFailure {
+                it.printStackTrace()
+                errors?.invoke("请求失败:${it.message}")
+                // 触发协程的 exceptionHandler
+                // error("请求失败:${it.message}")
+            }
         }
     }
 
@@ -69,16 +70,23 @@ class KtorHttpClient : IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     ) {
         scope.launch {
-            val formDataContent = params.toFormDataContent()
-            val json = ktorClient.post(url) {
-                this.header("User-Agent", "KMP Client by Ktor")
-                contentType(ContentType.Application.FormUrlEncoded)
-                setBody(formDataContent)
-            }.bodyAsText()
-            jsonParser.toBean(json, serializer, success, successList, error)
+            runCatching {
+                val formDataContent = params.toFormDataContent()
+                val json = ktorClient.post(url) {
+                    this.header("User-Agent", "KMP Client by Ktor")
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    setBody(formDataContent)
+                }.bodyAsText()
+                jsonParser.toBean(json, serializer, success, successList, errors)
+            }.onFailure {
+                it.printStackTrace()
+                errors?.invoke("请求失败:${it.message}")
+                // 触发协程的 exceptionHandler
+                // error("请求失败:${it.message}")
+            }
         }
     }
 }

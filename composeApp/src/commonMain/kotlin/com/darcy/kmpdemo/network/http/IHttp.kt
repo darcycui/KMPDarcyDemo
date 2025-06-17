@@ -12,7 +12,7 @@ interface IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     )
 
     fun <T> doPostRequest(
@@ -23,6 +23,6 @@ interface IHttp {
         needCache: Boolean,
         success: ((BaseResult<T>?) -> Unit)?,
         successList: ((BaseResult<List<T>>?) -> Unit)?,
-        error: ((String) -> Unit)?
+        errors: ((String) -> Unit)?
     )
 }
