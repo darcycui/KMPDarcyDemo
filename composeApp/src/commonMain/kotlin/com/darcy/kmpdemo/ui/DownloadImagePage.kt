@@ -36,6 +36,7 @@ import com.darcy.kmpdemo.platform.loadImageAsBitmap
 import com.darcy.kmpdemo.platform.createADirectory
 import com.darcy.kmpdemo.platform.getDownloadDir
 import com.darcy.kmpdemo.utils.suffix
+import kotlinx.coroutines.withContext
 import sun.nio.ch.Net.accept
 
 @Composable
@@ -65,10 +66,7 @@ fun ShowDownloadImage() {
     }
 }
 
-//private const val downloadImageUrl = "https://10.0.0.241:7443/api/download/image/a1.png"
-//private const val downloadImageUrl = "https://10.0.0.241:7443/api/download/image/android.exe"
-//private const val downloadImageUrl = "https://10.0.0.241:7443/api/download/image/jar.jar"
-private const val downloadImageUrl = "https://10.0.0.241:7443/api/download/image/yaml.yaml"
+private const val downloadImageUrl = "https://10.0.0.241:7443/api/download/image/a1.png"
 
 private fun downloadFile(
     scope: CoroutineScope,
@@ -99,7 +97,7 @@ private fun downloadFile(
             }
 
         }
-        scope.launch(Dispatchers.Main) {
+        withContext(Dispatchers.Main) {
             filePath.value = file.absolutePath
             imageBitmap.value = loadImageAsBitmap(filePath.value)
         }

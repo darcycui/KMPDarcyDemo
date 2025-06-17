@@ -29,6 +29,7 @@ fun ShowHome(
         add(Pages.KtorHttpPage)
         add(Pages.KtorWebsocketPage)
         add(Pages.DownloadImagePage)
+        add(Pages.UploadImagePage)
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

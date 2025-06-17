@@ -20,4 +20,5 @@
     <string name="websocket_disconnect">Websocket Disconnect</string>
     <string name="websocket_send">Websocket Send</string>
     <string name="download_image">Download Image</string>
+    <string name="upload_image">Upload Image</string>
 </resources>

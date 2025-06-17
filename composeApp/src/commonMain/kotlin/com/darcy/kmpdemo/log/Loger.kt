@@ -3,6 +3,7 @@ package com.darcy.kmpdemo.log
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import com.darcy.kmpdemo.platform.getPlatform
+import java.util.logging.Logger
 
 const val DARCY_TAG = "DarcyLog"
 fun initLoger() {

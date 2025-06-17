@@ -11,3 +11,7 @@ class JVMPlatform : Platform {
 }
 
 actual fun getPlatform(): Platform = JVMPlatform()
+
+actual fun isAndroid(): Boolean = false
+
+actual fun isDesktop(): Boolean = true
