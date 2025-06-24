@@ -1,10 +1,16 @@
 package com.darcy.kmpdemo.network.websocket
 
-import com.darcy.kmpdemo.network.websocket.impl.KtorWebSocketClientClient
+import com.darcy.kmpdemo.network.websocket.impl.KrossbowWebsocketClientImpl
+import com.darcy.kmpdemo.network.websocket.impl.KtorWebSocketClientImpl
 import com.darcy.kmpdemo.network.websocket.listener.IOuterListener
 
 object WebSocketManager : IWebSocketClient {
-    private val iWebsocketClient: IWebSocketClient = KtorWebSocketClientClient()
+//    private var iWebsocketClient: IWebSocketClient = KtorWebSocketClientImpl()
+    private var iWebsocketClient: IWebSocketClient = KrossbowWebsocketClientImpl()
+
+    fun setupWebSocketClient(iWebsocketClient: IWebSocketClient) {
+        this.iWebsocketClient = iWebsocketClient
+    }
 
     override fun init(url: String, fromUser: String) {
         iWebsocketClient.init(url, fromUser)

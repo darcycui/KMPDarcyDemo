@@ -12,6 +12,7 @@ import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 expect class ImagePicker {
@@ -24,6 +25,9 @@ expect fun ShowUploadImage()
 
 private const val uploadImageUrl = "https://10.0.0.241:7443/api/upload/image"
 
+/**
+ * 上传图片
+ */
 fun uploadFile(
     scope: CoroutineScope,
     imagePicker: ImagePicker?,
@@ -37,7 +41,7 @@ fun uploadFile(
             return@launch
         }
         val pickedFile = imagePicker.pickImage()
-        scope.launch(Dispatchers.Main) {
+        withContext(Dispatchers.Main) {
             filePath.value = pickedFile.absolutePath
             imageBitmap.value = loadImageAsBitmap(filePath.value)
         }
@@ -55,11 +59,15 @@ fun uploadFile(
                 }
             )
             val json = response.bodyAsText()
-            uploadResult.value = "上传成功:$json"
+            withContext(Dispatchers.Main) {
+                uploadResult.value = "上传成功:$json"
+            }
             println(json)
         }.onFailure {
             logE(msg = "uploadFile error:${it.message}", throwable = it)
-            uploadResult.value = "上传失败:${it.message}"
+            withContext(Dispatchers.Main) {
+                uploadResult.value = "上传失败:${it.message}"
+            }
         }
     }
 }

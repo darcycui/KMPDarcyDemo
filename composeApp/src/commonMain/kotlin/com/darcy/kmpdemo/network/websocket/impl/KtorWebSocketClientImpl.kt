@@ -20,9 +20,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
 import java.time.LocalDateTime
 
-class KtorWebSocketClientClient : IWebSocketClient, IOuterListener {
+class KtorWebSocketClientImpl : IWebSocketClient, IOuterListener {
     companion object {
-        private val TAG = KtorWebSocketClientClient::class.java.simpleName
+        private val TAG = KtorWebSocketClientImpl::class.java.simpleName
     }
 
     private var url: String = ""

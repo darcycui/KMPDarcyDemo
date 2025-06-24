@@ -16,9 +16,13 @@
     <string name="http_get">Http Get</string>
     <string name="http_post">Http Post</string>
     <string name="websocket">Websocket</string>
-    <string name="websocket_connect">Websocket Connect</string>
-    <string name="websocket_disconnect">Websocket Disconnect</string>
-    <string name="websocket_send">Websocket Send</string>
+    <string name="websocket_connect">Websocket 连接</string>
+    <string name="websocket_disconnect">Websocket 断开连接</string>
+    <string name="websocket_send">Websocket 发送消息</string>
     <string name="download_image">下载图片</string>
     <string name="upload_image">上传图片</string>
+    <string name="ktor_websocket_stomp">Websocket STOMP</string>
+    <string name="websocket_connect_stomp">Websocket STOMP 连接</string>
+    <string name="websocket_disconnect_stomp">Websocket STOMP 断开连接</string>
+    <string name="websocket_send_stomp">Websocket STOMP 发送消息</string>
 </resources>

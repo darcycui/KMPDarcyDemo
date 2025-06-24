@@ -23,4 +23,8 @@
     <string name="websocket_send">Websocket Send</string>
     <string name="download_image">Download Image</string>
     <string name="upload_image">Upload Image</string>
+    <string name="ktor_websocket_stomp">Websocket STOMP</string>
+    <string name="websocket_connect_stomp">Websocket STOMP Connect</string>
+    <string name="websocket_disconnect_stomp">Websocket STOMP Disconnect</string>
+    <string name="websocket_send_stomp">Websocket STOMP Send</string>
 </resources>

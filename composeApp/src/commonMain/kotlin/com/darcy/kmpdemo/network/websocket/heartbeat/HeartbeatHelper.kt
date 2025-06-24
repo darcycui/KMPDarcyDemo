@@ -20,7 +20,7 @@ class HeartbeatHelper(
     private val iWebSocketClient: IWebSocketClient
 ) {
     companion object {
-        internal val TAG = HeartbeatHelper::class.java.simpleName
+        private val TAG = HeartbeatHelper::class.java.simpleName
         private var instance: HeartbeatHelper? = null
 
         @Synchronized

@@ -16,4 +16,5 @@ enum class Pages(val title: StringResource) {
     KtorWebsocketPage(title = SharedRes.strings.ktor_websocket),
     DownloadImagePage(title = SharedRes.strings.download_image),
     UploadImagePage(title = SharedRes.strings.upload_image),
+    KtorWebSocketSTMOPPage(title = SharedRes.strings.ktor_websocket_stomp),
 }

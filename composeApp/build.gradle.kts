@@ -25,6 +25,8 @@ kotlin {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
+            // 忽略expect-actual class警告
+            freeCompilerArgs.add("-Xexpect-actual-classes")
         }
     }
 
@@ -77,6 +79,10 @@ kotlin {
             implementation(libs.org.androidx.navigation.compose)
             // log napier
             implementation(libs.napier)
+            // krossbow STOMP client for KMP
+            api(libs.krossbow.stomp.core)
+            api(libs.krossbow.websocket.builtin)
+            api(libs.krossbow.websocket.ktor)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

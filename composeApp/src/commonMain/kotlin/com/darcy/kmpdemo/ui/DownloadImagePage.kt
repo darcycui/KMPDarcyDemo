@@ -82,24 +82,26 @@ private fun downloadFile(
         val file = File.createTempFile("image_", downloadImageUrl.suffix(), downloadDir)
         val stream = file.outputStream().asSink()
         // download file in stream
-        ktorClient.prepareGet(downloadImageUrl) {
-            accept(ContentType.Image.Any)
-        }.execute() { httpResponse ->
-            val channel: ByteReadChannel = httpResponse.body()
-            var count = 0L
-            stream.use {
-                while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
-                    count += chunk.remaining
-                    chunk.transferTo(stream)
-                    println("Received $count bytes from ${httpResponse.contentLength()}")
+        runCatching {
+            ktorClient.prepareGet(downloadImageUrl) {
+                accept(ContentType.Image.Any)
+            }.execute() { httpResponse ->
+                val channel: ByteReadChannel = httpResponse.body()
+                var count = 0L
+                stream.use {
+                    while (!channel.exhausted()) {
+                        val chunk = channel.readRemaining()
+                        count += chunk.remaining
+                        chunk.transferTo(stream)
+                        println("Received $count bytes from ${httpResponse.contentLength()}")
+                    }
                 }
-            }
 
-        }
-        withContext(Dispatchers.Main) {
-            filePath.value = file.absolutePath
-            imageBitmap.value = loadImageAsBitmap(filePath.value)
+            }
+            withContext(Dispatchers.Main) {
+                filePath.value = file.absolutePath
+                imageBitmap.value = loadImageAsBitmap(filePath.value)
+            }
         }
     }
 }

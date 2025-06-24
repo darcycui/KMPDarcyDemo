@@ -66,7 +66,7 @@ val ktorClient: HttpClient
         }
         // retry
         install(HttpRequestRetry) {
-            maxRetries = 3
+            maxRetries = 1
             exponentialDelay() // 指数增长延迟
             retryIf { request, response ->
                 !response.status.isSuccess()
@@ -84,15 +84,15 @@ val ktorClient: HttpClient
         }
 
         // defaultRequest baseUrl headers
-        defaultRequest {
-            header("Content-Type", "application/json")
-            header("Authorization", "Bearer BuildConfig.OPENAI_API_KEY")
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "darcycui.com.cn"
-                path("api/")
-            }
-        }
+//        defaultRequest {
+//            header("Content-Type-default", "application/json")
+//            header("Authorization-default", "Bearer BuildConfig.OPENAI_API_KEY")
+//            url {
+//                protocol = URLProtocol.HTTPS
+//                host = "darcycui.com.cn"
+//                path("api/")
+//            }
+//        }
         // contentNegotiation serialization
         install(ContentNegotiation) {
             json(Json {
